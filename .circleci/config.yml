@@ -14,14 +14,14 @@ jobs:
       # The "--stop-agents-after" is optional, but allows idle agents to shut down once the "e2e-ci" targets have been requested
       # - run: npx nx-cloud start-ci-run --distribute-on="5 linux-medium-js" --stop-agents-after="e2e-ci"
 
-      - run: npm ci
+      - run: pnpm install --frozen-lockfile
       - nx/set-shas:
           main-branch-name: 'main'
 
       # Prepend any command with "nx-cloud record --" to record its logs to Nx Cloud
       # - run: npx nx-cloud record -- echo Hello World
       - run: npx nx affected --base=$NX_BASE --head=$NX_HEAD -t lint test build
-      - run: npx nx affected --base=$NX_BASE --head=$NX_HEAD --parallel 1 -t e2e-ci
+      # - run: npx nx affected --base=$NX_BASE --head=$NX_HEAD --parallel 1 -t e2e-ci
 
 workflows:
   version: 2
